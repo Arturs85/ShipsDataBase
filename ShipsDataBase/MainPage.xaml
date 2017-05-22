@@ -1,0 +1,94 @@
+﻿<Page
+    x:Class="ShipsDataBase.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ShipsDataBase"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="Page_Loaded_1">
+    <Page.TopAppBar>
+        <CommandBar  >
+            
+            <AppBarButton x:Name="appBarButton" Icon="Refresh" Label="Reload" Click="appBarButton_Click"/>
+            <AppBarButton x:Name="appBarButton1" Icon="Add" Label="Add">
+                <Button.Flyout>
+                    <MenuFlyout>
+                        <MenuFlyoutItem x:Name="addMilitary" Text="Add Military Ship" Click="AddMilitary_Click" />
+                        <MenuFlyoutItem x:Name="addCivil" Text="Add Civil Ship" Click="addCivil_Click" />
+                    </MenuFlyout>
+                </Button.Flyout>
+            </AppBarButton>
+
+            <AppBarButton x:Name="appBarButtonSave" Icon="Save" Label="Save" Click="appBarButtonSave_Click"/>
+            <AppBarButton x:Name="appBarButtonDelete" Icon="Delete" Label="Delete" Click="appBarButtonDelete_Click"/>
+            <AppBarButton x:Name="appBarButtonSort" Icon="Sort" Label="Sort" Click="appBarButton1_Click"/>
+
+        </CommandBar>
+
+    </Page.TopAppBar>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Height="540" >
+
+            <ListView x:Name="listView" ItemsSource="{x:Bind ViewModel.Ships}" HorizontalAlignment="Left"   Width="655" SelectionChanged="listView_SelectionChanged">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="local:CXclass">
+                        <StackPanel   Margin="6" Orientation="Horizontal" Width="479">
+                            <SymbolIcon Symbol="Document" Margin="0,0,10,0"/>
+                            <StackPanel  Width="200">
+                                <TextBlock Text="{x:Bind Nosaukums}" FontWeight="Bold"/>
+                                <TextBlock Text="{x:Bind Valsts}"/>
+
+                            </StackPanel>
+                            <StackPanel  Margin="0,6,6,6"  >
+                                <TextBlock Text="{x:Bind OneLineSummary}" FontSize="12" VerticalAlignment="Bottom" />
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+
+            </ListView>
+
+        </StackPanel>
+        <StackPanel DataContext="{Binding SelectedItem, ElementName=listView}"
+            Margin="0,24,0,0" VerticalAlignment="Bottom">
+            <Grid x:Name="editGrid"  VerticalAlignment="Top"  ToolTipService.ToolTip="edit" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock  Grid.Row="0" Grid.Column="0" Text="Ieraksta ID " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock  Grid.Row="1" Grid.Column="0" Text="Nosaukums " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock  Grid.Row="2" Grid.Column="0" Text="Valsts " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock  Grid.Row="3" Grid.Column="0" Text="Tonnāža " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock  Grid.Row="4" Grid.Column="0" Text="Kompānija " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock  Grid.Row="5" Grid.Column="0" Text="Lielgabalu skaits " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock  Grid.Row="6" Grid.Column="0" Text="Raķešu skaits " HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                <TextBlock x:Name="idText" Grid.Row="0" Grid.Column="1" Text="{Binding Id}"/>
+                <TextBox x:Name="nosaukumsText" Grid.Row="1" Grid.Column="1"  Text="{Binding Nosaukums}"/>
+                <TextBox x:Name="valstsText" Grid.Row="2" Grid.Column="1" Text="{Binding Valsts}"/>
+                <TextBox x:Name="tonnageText" Grid.Row="3" Grid.Column="1" Text="{Binding Tonnage}"/>
+                <TextBox x:Name="companyNameText" Grid.Row="4" Grid.Column="1" Text="{Binding CompanyName}"/>
+                <TextBox x:Name="lielgabaliText" Grid.Row="5" Grid.Column="1" Text="{Binding Lielgabali}"/>
+                <TextBox x:Name="missilesText" Grid.Row="6" Grid.Column="1" Text="{Binding Missiles}"/>
+            </Grid>
+
+
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Left" Height="75" VerticalAlignment="Top" Width="1270">
+            <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="" Height="90" VerticalAlignment="Bottom"  />
+        </StackPanel>
+
+    </Grid>
+</Page>
